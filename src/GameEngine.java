@@ -8,17 +8,28 @@
 import assignmentfiles.*;
 
 public class GameEngine {
-
+    private String targetWord;
+    private int attemptsLeft;
+    private boolean isWin;
     public GameEngine(String targetWord) {
-        
+        this.targetWord = targetWord;
+        this.attemptsLeft = 6;
+        this.isWin = false;
     }
 
     public String playGuess(String guess) {
-        return "-----";
+        attemptsLeft--;
+        String feedback = evaluateGuess(targetWord, guess);
+
+        if (feedback.equals("*".repeat(targetWord.length()))) {
+            isWin = true;
+        }
+
+        return feedback;
     }
 
     public static void main(String[] args) {
-        
+
     }
 
     /**
@@ -34,18 +45,31 @@ public class GameEngine {
      * Returns: "-*+**"
      **/
     public static String evaluateGuess(String targetWord, String guess) {
-        return "-----";
+        StringBuilder feedback = new StringBuilder();
+        int minLength = Math.min(targetWord.length(), guess.length());
+
+        for (int i = 0; i < minLength; i++) {
+            char guessChar = guess.charAt(i);
+            if (targetWord.charAt(i) == guessChar) {
+                feedback.append('*');
+            } else if (targetWord.contains(Character.toString(guessChar))) {
+                feedback.append('+');
+            } else {
+                feedback.append('-');
+            }
+        }
+        return feedback.toString();
     }
 
     public boolean isGameOver() {
-        return false;
+        return isWin || attemptsLeft <= 0;
     }
 
     public boolean isWin() {
-        return false;
+        return isWin;
     }
 
     public int getAttemptsLeft() {
-        return 0;
+        return attemptsLeft;
     }
 }
