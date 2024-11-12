@@ -3,7 +3,7 @@ public class GameUI {
     private Scanner input;
 
     public GameUI(){
-        this.input = new Scanner(System.in);
+        this.input = new Scanner(System.in);//note
     }
 
     public String readUserGuess(){

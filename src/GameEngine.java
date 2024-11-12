@@ -14,7 +14,7 @@ public class GameEngine {
     public GameEngine(String targetWord) {
         this.targetWord = targetWord;
         this.attemptsLeft = 6;
-        this.isWin = false;
+        this.isWin = false;// note
     }
 
     public String playGuess(String guess) {
